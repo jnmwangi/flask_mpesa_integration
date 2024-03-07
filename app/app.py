@@ -5,7 +5,8 @@ import json
 from os import environ
 from dotenv import load_dotenv
 
-load_dotenv()
+if environ.get("ENVIRONMENT") == "PRODUCTION":
+    load_dotenv(".env")
 
 app = Flask(__name__)
 CORS(app, origins="*")
