@@ -3,14 +3,14 @@ from flask_cors import CORS;
 from mpesa_payment import MpesaPayment
 import json, os
 from os import environ
-from dotenv import load_dotenv
+from dotenv import load_dotenv, dotenv_values
+
+app = Flask(__name__)
 
 if environ.get("ENVIRONMENT") == "PRODUCTION":
     load_dotenv()
+    app.config.from_mapping(dotenv_values())
 
-app = Flask(__name__)
-print(app.config)
-print(os.getenv("FLASK_MPESA_CONSUMER_KEY"))
 CORS(app, origins="*")
 
 @app.route("/")
@@ -20,7 +20,7 @@ def index():
 @app.route("/pay", methods=["POST"])
 def pay():
     body = request.get_json()
-    mpesa = MpesaPayment(body["phone_number"])
+    mpesa = MpesaPayment(app.config, body["phone_number"])
     
     #First request which is authorization
     authorization = json.loads(mpesa.authorization())    

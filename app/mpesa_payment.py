@@ -1,23 +1,18 @@
 import requests, base64
 from datetime import datetime
-import os
 from os import environ
-from dotenv import load_dotenv
-
-if environ.get("ENVIRONMENT") == "PRODUCTION":
-    load_dotenv()
 
 class MpesaPayment():
     HOST = "https://sandbox.safaricom.co.ke" \
-        if os.getenv("ENVIRONMENT") == "PRODUCTION" \
+        if environ.get("ENVIRONMENT") == "PRODUCTION" \
             else "https//api.safaricom.co.ke"
     
-    def __init__(self, phone_number) -> None:
+    def __init__(self, config, phone_number) -> None:
         self._phone_number = phone_number
-        self._consumer_key = os.getenv("FLASK_MPESA_CONSUMER_KEY")
-        self._consumer_secret = os.getenv("FLASK_MPESA_CONSUMER_SECRET")
-        self._business_short_code = os.getenv("FLASK_MPESA_BUSINESS_SHORTCODE")
-        self._passkey = os.getenv("FLASK_MPESA_PASSKEY")
+        self._consumer_key = config["FLASK_MPESA_CONSUMER_KEY"]
+        self._consumer_secret = config["FLASK_MPESA_CONSUMER_SECRET"]
+        self._business_short_code = config["FLASK_MPESA_BUSINESS_SHORTCODE"]
+        self._passkey = config["FLASK_MPESA_PASSKEY"]
         
     def get_auth(self):
         token = f"{self._consumer_key}:{self._consumer_secret}"
