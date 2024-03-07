@@ -1,14 +1,16 @@
 from flask import Flask, current_app, request, send_from_directory, make_response
 from flask_cors import CORS;
 from mpesa_payment import MpesaPayment
-import json
+import json, os
 from os import environ
 from dotenv import load_dotenv
 
 if environ.get("ENVIRONMENT") == "PRODUCTION":
-    load_dotenv(".env")
+    load_dotenv()
 
 app = Flask(__name__)
+print(app.config)
+print(os.getenv("FLASK_MPESA_CONSUMER_KEY"))
 CORS(app, origins="*")
 
 @app.route("/")
