@@ -3,6 +3,9 @@ from flask_cors import CORS;
 from mpesa_payment import MpesaPayment
 import json
 from os import environ
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app, origins="*")
