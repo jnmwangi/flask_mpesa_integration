@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay</title>
+    <style>
+        body, 
+        form{
+            display: flex;
+            flex-direction: column;
+            align-self: center;
+        }
+        input{
+            padding: 10px;
+            display: block;
+            width: 100%;
+        }
+    </style>
+
+    <script>
+
+        function submit(evt){
+            evt.preventDefault();
+            fetch("http://localhost:5005/pay", {
+                method: 'POST',
+                body: JSON.stringify({phone_number: evt.target.phone_number.value}),
+                headers:{
+                    'Content-Type':'application/json'
+                }
+            })
+            .then(resp=>resp.json())
+            .then(console.log)
+        }
+
+    </script>
+</head>
+<body>
+
+    <form>
+        <h3>Make Payment</h3>
+        <div>
+            <h5>Pay KES 1</h5>
+            <i>Refunderble</i>
+        </div>
+
+        <div>
+            <label>Enter your M-Pesa Phone Number</label>
+            <input type="text" name="phone_number" placeholder="2547xx xxx xxx" />
+        </div>
+
+        <div>
+            <button>Initiate Payment</button>
+        </div>
+    </form>
+
+    <script>
+        document.querySelector("form")
+            .addEventListener("submit", submit)
+    </script>
+    
+</body>
+</html>
