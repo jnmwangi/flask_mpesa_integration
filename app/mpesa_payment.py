@@ -9,10 +9,10 @@ class MpesaPayment():
     
     def __init__(self, config, phone_number) -> None:
         self._phone_number = phone_number
-        self._consumer_key = config["FLASK_MPESA_CONSUMER_KEY"]
-        self._consumer_secret = config["FLASK_MPESA_CONSUMER_SECRET"]
-        self._business_short_code = config["FLASK_MPESA_BUSINESS_SHORTCODE"]
-        self._passkey = config["FLASK_MPESA_PASSKEY"]
+        self._consumer_key = config.get("FLASK_MPESA_CONSUMER_KEY")
+        self._consumer_secret = config.get("FLASK_MPESA_CONSUMER_SECRET")
+        self._business_short_code = config.get("FLASK_MPESA_BUSINESS_SHORTCODE")
+        self._passkey = config.get("FLASK_MPESA_PASSKEY")
         
     def get_auth(self):
         token = f"{self._consumer_key}:{self._consumer_secret}"
