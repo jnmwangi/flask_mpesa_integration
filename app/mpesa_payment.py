@@ -3,7 +3,9 @@ from datetime import datetime
 from os import environ
 
 class MpesaPayment():
-    HOST = "https://sandbox.safaricom.co.ke"
+    HOST = "https://sandbox.safaricom.co.ke" \
+        if environ.get("ENVIRONMENT") == "PRODUCTION" \
+            else "https//api.safaricom.co.ke"
     
     def __init__(self, phone_number) -> None:
         self._phone_number = phone_number
