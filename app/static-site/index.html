@@ -22,7 +22,7 @@
 
         function submit(evt){
             evt.preventDefault();
-            fetch("http://localhost:5005/pay", {
+            fetch("/pay", {
                 method: 'POST',
                 body: JSON.stringify({phone_number: evt.target.phone_number.value}),
                 headers:{
